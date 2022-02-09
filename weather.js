@@ -52,6 +52,8 @@ function getWeather (lat, lon, cityName) {
       url.searchParams.append(property, parameters[property]);
     }
 
+    // console.log(url);   // FOR TESTS ONLY
+
     // Connect to the API URL
     const req = https.get(url, res => {
       if (res.statusCode === 200) {
@@ -77,7 +79,7 @@ function getWeather (lat, lon, cityName) {
         });
       } else {
         // If status code !== 200
-        const message = `There was a problem getting the weather info for ${info[0]}, ${info[1]}, ${info[2]} (${http.STATUS_CODES[res.statusCode]})`;
+        const message = `There was a problem getting the weather info for ${cityName} Latitude: ${lat}, Longitude: ${lon} (${res.statusCode} - ${http.STATUS_CODES[res.statusCode]})`;
         const statusCodeError = new Error(message);
         console.error(statusCodeError);
       }

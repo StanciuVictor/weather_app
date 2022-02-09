@@ -65,12 +65,12 @@ function getCities (info) {
     if (containsNumber(info)) {
       // Search by zip code
       zipSearch = true;
-      parameters.zip = info;
+      parameters.zip = info.replace(' ', '');
       url = new URL(`https://api.openweathermap.org/geo/1.0/zip?`);
     } else {
       // Search by city name
       zipSearch = false;
-      parameters.q = info;
+      parameters.q = info.replaceAll(' ', '+');
       url = new URL(`https://api.openweathermap.org/geo/1.0/direct?`);
     }
 
@@ -80,6 +80,7 @@ function getCities (info) {
     }
 
     // console.log(url);  // -- FOR TESTS ONLY
+    // console.log(url.searchParams);  // -- FOR TESTS ONLY
 
     // Connect to the API URL
     const req = https.get(url, res => {
@@ -98,12 +99,7 @@ function getCities (info) {
             // Parse the data
             const cities = JSON.parse(body);
             // Print the data
-            printData(cities, zipSearch);   // FOR TESTS ONLY
-
-
-
-
-
+            // printData(cities, zipSearch);   // FOR TESTS ONLY
 
             if (!zipSearch) {
               // If search is made by city name
@@ -117,19 +113,6 @@ function getCities (info) {
               // console.log(`cities.lat, cities.lon, cities.name`);   // FOR TESTS ONLY
               weather.getWeather(cities.lat, cities.lon, cities.name);
             }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
           } catch (error) {
             console.error(error.message);

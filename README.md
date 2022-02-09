@@ -18,11 +18,12 @@ node app.js {zip code}[, {country code - ISO 3166}]
 node app.js Los Angeles, CA, US
 node app.js London, GB
 node app.js 90210
+node app.js 90210,US
 ```
 
 **_NOTE_:** For US cities, if you choose to use the state code, then you must use the country code aswell
 
-```
+```js
 node app.js Los Angeles, US       // OK
 node app.js Los Angeles, CA, US   // OK
 node app.js Los Angeles, CA       // NOT OK
